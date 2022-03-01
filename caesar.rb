@@ -2,10 +2,12 @@
 #Arguments - A string, integer defining how many letters to shift each character
 #Output - modified string
 
-print "Enter the phrase to encode"
+require 'pry-byebug'
+
+print "Enter the phrase to encode: "
 input_string = gets.chomp
-print "Enter the shift factor"
-shift_factor = gets.chomp
+print "Enter the shift factor: "
+shift_factor = gets.chomp.to_i
 
 # The function will convert the string into an array with split. Use map to
 # convert each character into an ascii code using ord. Then increment the ord
@@ -19,24 +21,24 @@ def caesar(input_string, shift_factor)
   upper_case_range = (65..90)
 
   ord_array = input_string.split("").map {|chr| chr.ord }
-  ord_array.map do |ord|
+  shifted_array = ord_array.map do |ord|
     if lower_case_range.include?(ord)
       chr_case = "lower"
     elsif upper_case_range.include?(ord)
       chr_case = "upper"
     else
-      chr_case = "neither"
+      next
     end
 
     shift_factor.times do
-        if chr_case == "lower"
-
-        elsif chr_case == "upper"
-
-        else
-          next
-        end
-      end
+      ord += 1
     end
+    ord
   end
+
+  shifted_string = shifted_array.map {|ord| ord.chr }.join("")
+  p shifted_array
+  p shifted_string
 end
+
+  caesar(input_string, shift_factor)
