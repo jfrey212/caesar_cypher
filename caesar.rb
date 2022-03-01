@@ -2,8 +2,6 @@
 #Arguments - A string, integer defining how many letters to shift each character
 #Output - modified string
 
-require 'pry-byebug'
-
 print "Enter the phrase to encode: "
 input_string = gets.chomp
 print "Enter the shift factor: "
@@ -27,12 +25,27 @@ def caesar(input_string, shift_factor)
     elsif upper_case_range.include?(ord)
       chr_case = "upper"
     else
-      next
+      chr_case = "neither"
     end
 
     shift_factor.times do
-      ord += 1
+      if chr_case == "lower"
+          if ord == lower_case_range.last
+            ord = lower_case_range.first
+          else
+            ord += 1
+          end
+      elsif chr_case == "upper"
+        if ord == upper_case_range.last
+          ord = upper_case_range.first
+        else
+          ord += 1
+        end
+      else
+        ord
+      end
     end
+
     ord
   end
 
